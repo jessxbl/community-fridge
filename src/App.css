@@ -27,3 +27,7 @@ ul {
  
 }
 
+.indiv-item {
+  display: flex;
+}
+
