@@ -18,9 +18,9 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
   
 }
 
-.food-list {
+/* .food-list {
   display: flex;
-}
+} */
 
 ul {
   list-style: none;
