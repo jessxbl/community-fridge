@@ -1,5 +1,5 @@
 import firebase from '../firebase';
-    const dbRef = firebase.database().ref();
+    // const dbRef = firebase.database().ref();
      const foodLists = {
            stockItems : [
             {
