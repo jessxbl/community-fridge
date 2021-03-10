@@ -31,3 +31,9 @@ ul {
   display: flex;
 }
 
+ button {
+   border-radius: 50%;
+   border: none;
+   margin: 5px;
+   
+ }

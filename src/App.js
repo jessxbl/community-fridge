@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 function App() {
   // const [stock, setStock] = useState(0);
   const [inventory, setInventory] = useState([]);
+  const [groceryLi, setGroceryLi] = useState([{type:'type', quantity: null}]);
   //add useEffect hook
   useEffect(() => {
     //create ref to firebase, on value, data.val
@@ -40,6 +41,7 @@ function App() {
   }, [])
   const handleClickIncr = (event, currentStock) => {
      const ref = event.target.name;
+     console.log(event.target)
      const stock = currentStock || 0;
     //  console.log(event);
      const itemRef = firebase.database().ref(`stockItems/${ref}`);
@@ -48,12 +50,16 @@ function App() {
      })
   };
 
-  const handleClickAddLi = () => {
-    console.log('added li');
+  const handleClickAddLi = (foodType) => {
+    console.log(foodType);
+      <li>{foodType}</li>
     return(
-      <ul className="grocery-list"></ul>
+        <ul className="user-list">
+          <li>{foodType}</li>
+        </ul>
     )
-  }
+    
+  };
 
 
   const handleClickRemove = (event, currentStock) => {
@@ -80,15 +86,14 @@ function App() {
                   <>
                   <div className="indiv-item">
                   <li>{stockItem.type}</li>
-
                   {/* <input name ={stockItem.key} type="text" readOnly value={stockItem.currentStock}/> */}
-
                   <li name={stockItem.key}>{stockItem.currentStock}</li>
 
                   <li>/{stockItem.capacity}</li>
 
-                      <button name={stockItem.key} onClick={(event) => {handleClickIncr(event, stockItem.currentStock); handleClickAddLi()}}>+</button>
-
+                      {/* <button name={stockItem.key} onClick={(event) => handleClickIncr(event, stockItem.currentStock)}>+</button> */}
+                      
+                      <button name={stockItem.key} onClick={(event) => {handleClickIncr(event, stockItem.currentStock); handleClickAddLi(stockItem.type)}}>+</button>
 
                       <button name={stockItem.key} onClick={(event) => handleClickRemove(event, stockItem.currentStock)}>-</button>
 
@@ -100,14 +105,10 @@ function App() {
           </div>
 
       </section>
-
       <section className="grocery-list">
-
       </section>
-
      </main>
 
-      
     </div>
   );
 }
