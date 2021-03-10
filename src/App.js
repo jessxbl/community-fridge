@@ -2,13 +2,15 @@ import './App.css';
 import firebase from './firebase.js';
 import Header from './components/Header.js';
 import { useState, useEffect } from 'react';
+import UpdateStock from './components/UpdateStock';
+import BuyList from './components/BuyList';
 
 
 
 function App() {
   // const [stock, setStock] = useState(0);
   const [inventory, setInventory] = useState([]);
-  const [groceryLi, setGroceryLi] = useState([{type:'type', quantity: null}]);
+  // const [groceryLi, setGroceryLi] = useState([{type:'type', quantity: null}]);
   //add useEffect hook
   useEffect(() => {
     //create ref to firebase, on value, data.val
@@ -39,44 +41,44 @@ function App() {
     })
 
   }, [])
-  const handleClickIncr = (event, currentStock) => {
-     const ref = event.target.name;
-     console.log(event.target)
-     const stock = currentStock || 0;
-    //  console.log(event);
-     const itemRef = firebase.database().ref(`stockItems/${ref}`);
-     itemRef.update({
-       currentStock: parseInt(stock) + 1
-     })
-  };
+  // const handleClickIncr = (event, currentStock) => {
+  //    const ref = event.target.name;
+  //    console.log(event.target)
+  //    const stock = currentStock || 0;
+  //   //  console.log(event);
+  //    const itemRef = firebase.database().ref(`stockItems/${ref}`);
+  //    itemRef.update({
+  //      currentStock: parseInt(stock) + 1
+  //    })
+  // };
 
-  const handleClickAddLi = (foodType) => {
-    console.log(foodType);
-      <li>{foodType}</li>
-    return(
-        <ul className="user-list">
-          <li>{foodType}</li>
-        </ul>
-    )
+  // const handleClickAddLi = (foodType) => {
+  //   console.log(foodType);
+  //     <li>{foodType}</li>
+  //   return(
+  //       <ul className="user-list">
+  //         <li>{foodType}</li>
+  //       </ul>
+  //   )
     
-  };
+  // };
 
 
-  const handleClickRemove = (event, currentStock) => {
-    const ref = event.target.name;
-    const stock = currentStock || 0;
-    const itemRef = firebase.database().ref(`stockItems/${ref}`);
-    itemRef.update({
-      currentStock: parseInt(stock) - 1
-    })
-  };
+  // const handleClickRemove = (event, currentStock) => {
+  //   const ref = event.target.name;
+  //   const stock = currentStock || 0;
+  //   const itemRef = firebase.database().ref(`stockItems/${ref}`);
+  //   itemRef.update({
+  //     currentStock: parseInt(stock) - 1
+  //   })
+  // };
   
   return (
     <div className="App">
       <Header />
      <main>
 
-      <section className="stock-main">
+      <section className="stock-main" className="wrapper">
           <h3>Our Current Stock</h3>
           <div className="food-list">
             <ul className="food-type">
@@ -86,26 +88,17 @@ function App() {
                   <>
                   <div className="indiv-item">
                   <li>{stockItem.type}</li>
-                  {/* <input name ={stockItem.key} type="text" readOnly value={stockItem.currentStock}/> */}
-                  <li name={stockItem.key}>{stockItem.currentStock}</li>
-
-                  <li>/{stockItem.capacity}</li>
-
-                      {/* <button name={stockItem.key} onClick={(event) => handleClickIncr(event, stockItem.currentStock)}>+</button> */}
-                      
-                      <button name={stockItem.key} onClick={(event) => {handleClickIncr(event, stockItem.currentStock); handleClickAddLi(stockItem.type)}}>+</button>
-
-                      <button name={stockItem.key} onClick={(event) => handleClickRemove(event, stockItem.currentStock)}>-</button>
-
+                  <UpdateStock stockItem = {stockItem} />
                   </div>
                    </>
                 )
               })}
            </ul>
           </div>
-
       </section>
+
       <section className="grocery-list">
+        <BuyList userList = {stockItem} />
       </section>
      </main>
 
