@@ -8,9 +8,10 @@ import BuyList from './components/BuyList';
 
 
 function App() {
-  // const [stock, setStock] = useState(0);
   const [inventory, setInventory] = useState([]);
-  // const [groceryLi, setGroceryLi] = useState([{type:'type', quantity: null}]);
+  // const [filteredInventory, setFilteredInventory] = useState([])
+  const [itemsAdded, setItemsAdded] = useState([])
+ 
   //add useEffect hook
   useEffect(() => {
     //create ref to firebase, on value, data.val
@@ -30,9 +31,10 @@ function App() {
           key: foodKey,
           capacity: foodData[foodKey].capacity,
           type: foodData[foodKey].type,
-          currentStock: foodData[foodKey].currentStock
-          
+          currentStock: foodData[foodKey].currentStock,
+          inCart: foodData[foodKey].inCart
         });
+        
       }
       
       //update inventory stock w firebase data
@@ -41,7 +43,52 @@ function App() {
     })
 
   }, [])
-  // const handleClickIncr = (event, currentStock) => {
+
+  function addToCart(quantity, itemType){
+    const copy = [...itemsAdded, [{inCart: quantity, type: itemType }]]
+      setItemsAdded(copy)
+      // console.log(itemsAdded)
+  }
+
+
+  
+  return (
+    <div className="App">
+      <Header />
+    
+     <main className="wrapper"> 
+      <section className="stock-main">
+          <h3>Our Current Stock</h3>
+          <div className="food-list">
+            <ul className="food-type">
+              {inventory.map((stockItem) => {
+                // console.log(stockItem)
+                return (
+                  <>
+                  <div className="indiv-item">
+                  <li>{stockItem.type}</li>
+                  <UpdateStock stockItem = {stockItem} addToCart = {addToCart}/>
+                  </div>
+                   </>
+                )
+              })}
+           </ul>
+          </div>
+      </section>
+
+      <section className="grocery-list">
+        <BuyList  itemsAdded = {itemsAdded} />
+      </section>
+     </main>
+
+    </div>
+  );
+}
+
+export default App;
+
+//set up useState adn then pass setUseState as value to db.update()
+ // const handleClickIncr = (event, currentStock) => {
   //    const ref = event.target.name;
   //    console.log(event.target)
   //    const stock = currentStock || 0;
@@ -60,7 +107,7 @@ function App() {
   //         <li>{foodType}</li>
   //       </ul>
   //   )
-    
+
   // };
 
 
@@ -72,43 +119,8 @@ function App() {
   //     currentStock: parseInt(stock) - 1
   //   })
   // };
-  
-  return (
-    <div className="App">
-      <Header />
-     <main>
 
-      <section className="stock-main" className="wrapper">
-          <h3>Our Current Stock</h3>
-          <div className="food-list">
-            <ul className="food-type">
-              {inventory.map((stockItem) => {
-                // console.log(stockItem)
-                return (
-                  <>
-                  <div className="indiv-item">
-                  <li>{stockItem.type}</li>
-                  <UpdateStock stockItem = {stockItem} />
-                  </div>
-                   </>
-                )
-              })}
-           </ul>
-          </div>
-      </section>
 
-      <section className="grocery-list">
-        <BuyList userList = {stockItem} />
-      </section>
-     </main>
-
-    </div>
-  );
-}
-
-export default App;
-
-//set up useState adn then pass setUseState as value to db.update()
 
 
           /*

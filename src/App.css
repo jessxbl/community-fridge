@@ -22,6 +22,9 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
   margin: 0 auto;
 }
 
+main {
+  display: flex;
+}
 
 .stock-main {
   border: 1px solid black;

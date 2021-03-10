@@ -1,30 +1,24 @@
 //button click increases or decreases currenStock amount in firebase database
 //dynamically changes state on page 
 import firebase from '../firebase';
+import { useState } from 'react'
 
 function UpdateStock (props) {
     const {stockItem} = props;
-    const handleClickIncr = (event, currentStock) => {
+    // const [filteredInventory, setFilteredInventory] = useState([])
+    const handleClickIncr = (event, currentStock, inCart, type) => {
         const ref = event.target.name;
-        console.log(event.target)
         const stock = currentStock || 0;
-        //  console.log(event);
         const itemRef = firebase.database().ref(`stockItems/${ref}`);
         itemRef.update({
-            currentStock: parseInt(stock) + 1
+            currentStock: parseInt(stock) + 1,
+            inCart: + 1
+            
         })
+        //call separate function to add item to cart 
+        props.addToCart (inCart, type)
     };
-
-    //move to BuyList component??
-    const handleClickAddLi = (foodType) => {
-        console.log(foodType);
-        <li>{foodType}</li>
-        return (
-            <ul className="user-list">
-                <li>{foodType}</li>
-            </ul>
-        )
-    };
+    
 
     const handleClickRemove = (event, currentStock) => {
         const ref = event.target.name;
@@ -40,7 +34,9 @@ function UpdateStock (props) {
 
         <li>/{stockItem.capacity}</li>
 
-        <button name={stockItem.key} onClick={(event) => { handleClickIncr(event, stockItem.currentStock); handleClickAddLi(stockItem.type) }}>+</button>
+        <button name={stockItem.key} onClick={(event) => { handleClickIncr(event, stockItem.currentStock, stockItem.inCart, stockItem.type) }}>+</button>
+       
+        {/* <button name={stockItem.key} onClick={(event) => { handleClickIncr(event, stockItem.currentStock); handleClickAddLi(stockItem.type) }}>+</button> */}
 
         <button name={stockItem.key} onClick={(event) => handleClickRemove(event, stockItem.currentStock)}>-</button>
         </>
