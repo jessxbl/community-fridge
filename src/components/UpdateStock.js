@@ -41,10 +41,6 @@ function UpdateStock (props) {
                 </div>
                     
 
-            {/* <li className name={stockItem.key}>
-                    <span className="current-stock">{stockItem.currentStock}
-                        </span>/{stockItem.capacity}</li> */}
-
             <div className="buttons">
             <button name={stockItem.key} onClick={(event) => { handleClickIncr(event, stockItem.currentStock, stockItem.inCart, stockItem.type) }}>+</button>
         

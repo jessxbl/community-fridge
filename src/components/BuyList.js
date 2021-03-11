@@ -6,20 +6,7 @@ function BuyList(props) {
     return(
         <h1></h1>
     )
-    //  const itemsAdded = props
-    //  const cartItems= props.itemsAdded
-    // //  console.log(itemsAdded)
-    // //  console.log(cartItems)
-    // console.log(itemsAdded)
-    // console.log(cartItems)
-    
-    //      return (
-    //          <ul className="indiv-item">
-    //              <li>{cartItems}</li>
-    //          </ul>
-            
-    //      )
-
+  
     
 
 }
