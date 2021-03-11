@@ -3,7 +3,6 @@ import firebase from './firebase.js';
 import Header from './components/Header.js';
 import { useState, useEffect } from 'react';
 import UpdateStock from './components/UpdateStock';
-import BuyList from './components/BuyList';
 
 
 
@@ -63,9 +62,7 @@ function App() {
            </ul>
       </section>
 
-      <section className="grocery-list">
-                  <BuyList itemsAdded={itemsAdded} />
-      </section>
+     
      </main>
      <footer>Created at <a href="https://junocollege.com/">Juno College</a>
      </footer>
