@@ -45,12 +45,12 @@ function App() {
   }, [])
 
   function addToCart(quantity, itemType){
-    const copy = [...itemsAdded, [{inCart: quantity, type: itemType }]]
+    const copy = [...itemsAdded, {inCart: quantity, type: itemType }]
       setItemsAdded(copy)
       // console.log(itemsAdded)
   }
 
-
+  // console.log(inventory)
   
   return (
     <div className="App">
@@ -59,27 +59,32 @@ function App() {
      <main className="wrapper"> 
       <section className="stock-main">
           <h3>Our Current Stock</h3>
-          <div className="food-list">
-            <ul className="food-type">
+            <ul className="food-stock">
               {inventory.map((stockItem) => {
                 // console.log(stockItem)
                 return (
                   <>
-                  <div className="indiv-item">
-                  <li>{stockItem.type}</li>
+                 
                   <UpdateStock stockItem = {stockItem} addToCart = {addToCart}/>
-                  </div>
                    </>
                 )
               })}
            </ul>
-          </div>
       </section>
 
       <section className="grocery-list">
-        <BuyList  itemsAdded = {itemsAdded} />
+          {/* <BuyList stockItem={stockItem} itemsAdded={itemsAdded} /> */}
+            
+                <div className="indiv-item">
+                  {/* <li>{stockItem.type}</li> */}
+                  <BuyList itemsAdded={itemsAdded} />
+                  {/* stockItem={stockItem} */}
+                </div>
+
       </section>
      </main>
+     <footer>Created at <a href="https://junocollege.com/">Juno College</a>
+     </footer>
 
     </div>
   );

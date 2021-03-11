@@ -1,7 +1,7 @@
 //button click increases or decreases currenStock amount in firebase database
 //dynamically changes state on page 
 import firebase from '../firebase';
-import { useState } from 'react'
+// import { useState } from 'react'
 
 function UpdateStock (props) {
     const {stockItem} = props;
@@ -18,6 +18,7 @@ function UpdateStock (props) {
         //call separate function to add item to cart 
         props.addToCart (inCart, type)
     };
+        
     
 
     const handleClickRemove = (event, currentStock) => {
@@ -30,15 +31,27 @@ function UpdateStock (props) {
     };
     return (
         <>
-        <li name={stockItem.key}>{stockItem.currentStock}</li>
+        <div className="indiv-item">
+            <li className="item-name">{stockItem.type}</li>
+            <div className="item-counter">
+                    <input name={stockItem.key} 
+                    type="text" 
+                    readOnly
+                    value={`${stockItem.currentStock} /${stockItem.capacity}`}/>
+                </div>
+                    
 
-        <li>/{stockItem.capacity}</li>
+            {/* <li className name={stockItem.key}>
+                    <span className="current-stock">{stockItem.currentStock}
+                        </span>/{stockItem.capacity}</li> */}
 
-        <button name={stockItem.key} onClick={(event) => { handleClickIncr(event, stockItem.currentStock, stockItem.inCart, stockItem.type) }}>+</button>
-       
-        {/* <button name={stockItem.key} onClick={(event) => { handleClickIncr(event, stockItem.currentStock); handleClickAddLi(stockItem.type) }}>+</button> */}
+            <div className="buttons">
+            <button name={stockItem.key} onClick={(event) => { handleClickIncr(event, stockItem.currentStock, stockItem.inCart, stockItem.type) }}>+</button>
+        
+            <button name={stockItem.key} onClick={(event) => handleClickRemove(event, stockItem.currentStock)}>-</button>
 
-        <button name={stockItem.key} onClick={(event) => handleClickRemove(event, stockItem.currentStock)}>-</button>
+            </div>
+        </div>
         </>
     )
 }
